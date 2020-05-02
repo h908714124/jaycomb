@@ -1,8 +1,7 @@
 package com.javay;
 
-// Higher-order function returning an int function
-// F: F -> (int -> int)
+// Self referential type!
 interface FuncToIntFunc {
-    
+
     IntFunc apply(FuncToIntFunc x);
 }
