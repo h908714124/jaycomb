@@ -10,13 +10,21 @@ import java.util.function.Function;
 
 import static java.math.BigInteger.ONE;
 
-class FixpointTest {
+class FixpointFactoryTest {
 
-    private BigInteger pseudoAdd(Function<Entry<BigInteger, BigInteger>, BigInteger> f, Entry<BigInteger, BigInteger> n) {
+    private BigInteger recursiveAdd(Function<Entry<BigInteger, BigInteger>, BigInteger> f, Entry<BigInteger, BigInteger> n) {
         if (n.getKey().equals(BigInteger.ZERO)) {
             return n.getValue();
         }
         return f.apply(pair(n.getKey().subtract(ONE), n.getValue().add(ONE)));
+    }
+
+    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = FixpointFactory.recursify(this::recursiveAdd);
+
+    @Test
+    void testAdd() {
+        Assertions.assertEquals(BigInteger.valueOf(4), add.apply(pair(11, -7)));
+        Assertions.assertEquals(BigInteger.valueOf(10), add.apply(pair(1, 9)));
     }
 
     private static Entry<BigInteger, BigInteger> pair(int n1, int n2) {
@@ -25,13 +33,5 @@ class FixpointTest {
 
     private static Entry<BigInteger, BigInteger> pair(BigInteger n1, BigInteger n2) {
         return new SimpleImmutableEntry<>(n1, n2);
-    }
-
-    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = Fixpoint.recursify(this::pseudoAdd);
-
-    @Test
-    void testAdd() {
-        Assertions.assertEquals(BigInteger.valueOf(4), add.apply(pair(11, -7)));
-        Assertions.assertEquals(BigInteger.valueOf(10), add.apply(pair(1, 9)));
     }
 }
