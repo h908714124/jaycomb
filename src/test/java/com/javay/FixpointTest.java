@@ -19,7 +19,7 @@ class FixpointTest {
         return f.apply(pair(n.getKey().subtract(ONE), n.getValue().add(ONE)));
     }
 
-    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = new Fixpoint<>(this::recursiveAdd).get();
+    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = new Fixpoint<>(this::recursiveAdd);
 
     @Test
     void testAdd() {

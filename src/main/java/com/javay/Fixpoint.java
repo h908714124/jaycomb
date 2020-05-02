@@ -2,9 +2,8 @@ package com.javay;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
-class Fixpoint<T, R> implements Supplier<Function<T, R>> {
+class Fixpoint<T, R> implements Function<T, R> {
 
     private Function<T, R> fixpoint;
 
@@ -14,7 +13,7 @@ class Fixpoint<T, R> implements Supplier<Function<T, R>> {
     }
 
     @Override
-    public Function<T, R> get() {
-        return fixpoint;
+    public R apply(T t) {
+        return fixpoint.apply(t);
     }
 }
