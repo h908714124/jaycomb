@@ -14,10 +14,10 @@ class FixpointFactory<T, R> {
 
     // Creates a fixpoint of r.
     Function<T, R> createFixpoint() {
-        return r.apply(this::iterate);
+        return r.apply(this::recur);
     }
 
-    private R iterate(T t) {
+    private R recur(T t) {
         return createFixpoint().apply(t);
     }
 }
