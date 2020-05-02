@@ -6,7 +6,7 @@ import java.util.function.UnaryOperator;
 
 class Fixpoint {
 
-    // This is fine.
+    // Creates a fixpoint.
     private static <T, R> Function<UnaryOperator<Function<T, R>>, Function<T, R>> create() {
         return r -> {
             SelfApply<T, R> self1 = SelfApply.create(UnaryOperator.identity());

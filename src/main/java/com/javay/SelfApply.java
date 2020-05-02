@@ -8,6 +8,7 @@ interface SelfApply<T, R> {
     // Self referential method, a necessary evil?
     Function<T, R> apply(SelfApply<T, R> x);
 
+    // Creates a SelfApply.
     static <T, R> SelfApply<T, R> create(UnaryOperator<Function<T, R>> r) {
         return self -> {
             Function<T, R> f = t -> {
