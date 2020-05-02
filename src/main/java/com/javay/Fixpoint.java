@@ -6,6 +6,7 @@ import java.util.function.UnaryOperator;
 
 class Fixpoint {
 
+    // This is fine.
     private static <T, R> Function<UnaryOperator<Function<T, R>>, Function<T, R>> create() {
         return r -> {
             SelfApply<T, R> self1 = SelfApply.create(UnaryOperator.identity());
@@ -14,6 +15,7 @@ class Fixpoint {
         };
     }
 
+    // Convenient recursifier, but note that the resulting function can overflow the stack.
     static <T, R> Function<T, R> recursify(BiFunction<Function<T, R>, T, R> r) {
         UnaryOperator<Function<T, R>> operator = f -> t -> r.apply(f, t);
         return Fixpoint.<T, R>create().apply(operator);
