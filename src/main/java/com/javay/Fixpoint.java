@@ -9,8 +9,8 @@ class Fixpoint {
     // Creates a fixpoint.
     private static <T, R> Function<UnaryOperator<Function<T, R>>, Function<T, R>> create() {
         return r -> {
-            SelfApply<T, R> self1 = SelfApply.create(UnaryOperator.identity());
-            SelfApply<T, R> self2 = SelfApply.create(r);
+            SelfApply<T, R> self1 = SelfApply.createEager();
+            SelfApply<T, R> self2 = SelfApply.createLazy(r);
             return self1.apply(self2);
         };
     }

@@ -8,15 +8,19 @@ interface SelfApply<T, R> {
     // Self referential method, a necessary evil?
     Function<T, R> apply(SelfApply<T, R> x);
 
-    // Creates a SelfApply.
-    static <T, R> SelfApply<T, R> create(UnaryOperator<Function<T, R>> r) {
-        return self -> {
-            Function<T, R> f = t -> {
-                Function<T, R> g = self.apply(self);
-                return g.apply(t);
+    // λf.(f f)
+    static <T, R> SelfApply<T, R> createEager() {
+        return f -> f.apply(f);
+    }
+
+    // λf.(r λx.((f f) x)
+    static <T, R> SelfApply<T, R> createLazy(UnaryOperator<Function<T, R>> r) {
+        return f -> {
+            Function<T, R> lazy = x -> {
+                Function<T, R> eager = f.apply(f);
+                return eager.apply(x);
             };
-            // It seems like r.apply(self.apply(self)) would be equivalent, but...
-            return r.apply(f);
+            return r.apply(lazy);
         };
     }
 }
