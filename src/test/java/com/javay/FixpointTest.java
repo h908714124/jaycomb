@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 import static java.math.BigInteger.ONE;
 
-class FixpointFactoryTest {
+class FixpointTest {
 
     private BigInteger recursiveAdd(Function<Entry<BigInteger, BigInteger>, BigInteger> f, Entry<BigInteger, BigInteger> n) {
         if (n.getKey().equals(BigInteger.ZERO)) {
@@ -19,7 +19,7 @@ class FixpointFactoryTest {
         return f.apply(pair(n.getKey().subtract(ONE), n.getValue().add(ONE)));
     }
 
-    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = new FixpointFactory<>(this::recursiveAdd).createFixpoint();
+    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = new Fixpoint<>(this::recursiveAdd).get();
 
     @Test
     void testAdd() {
