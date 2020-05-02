@@ -10,9 +10,13 @@ interface SelfApply<T, R> {
 
     // "paradoxical" factory
     static <T, R> SelfApply<T, R> create(UnaryOperator<Function<T, R>> r) {
-        return self -> r.apply(x -> {
-            Function<T, R> f = self.apply(self);
-            return f.apply(x);
-        });
+        return self -> {
+            Function<T, R> f = t -> {
+                Function<T, R> g = self.apply(self);
+                return g.apply(t);
+            };
+            // It looks like r.apply(self.apply(self)) would be equivalent here, but that leads to stack overflow!
+            return r.apply(f);
+        };
     }
 }
