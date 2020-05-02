@@ -10,15 +10,11 @@ class Fixpoint<T, R> implements Supplier<Function<T, R>> {
 
     // Create a recursive version of r.
     Fixpoint(BiFunction<Function<T, R>, T, R> r) {
-        this.fixpoint = t -> r.apply(this::recur, t);
+        this.fixpoint = t -> r.apply(fixpoint, t);
     }
 
     @Override
     public Function<T, R> get() {
         return fixpoint;
-    }
-
-    private R recur(T t) {
-        return fixpoint.apply(t);
     }
 }
