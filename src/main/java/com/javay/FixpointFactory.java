@@ -12,7 +12,7 @@ class FixpointFactory<T, R> {
         this.r = f -> t -> r.apply(f, t);
     }
 
-    // Creates a fixpoint of r.
+    // Creates a recursive version of r.
     Function<T, R> createFixpoint() {
         return r.apply(this::recur);
     }
