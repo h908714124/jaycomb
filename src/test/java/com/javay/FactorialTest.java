@@ -11,14 +11,14 @@ import static java.math.BigInteger.ZERO;
 
 class FactorialTest {
 
-    private BigInteger rfact(Function<BigInteger, BigInteger> f, BigInteger n) {
+    BigInteger rfact(Function<BigInteger, BigInteger> f, BigInteger n) {
         if (n.equals(ZERO)) {
             return ONE;
         }
         return n.multiply(f.apply(n.subtract(ONE)));
     }
 
-    private Function<BigInteger, BigInteger> fact = new Fixpoint<>(this::rfact);
+    Function<BigInteger, BigInteger> fact = new Fixpoint<>(this::rfact);
 
     @Test
     void testFact() {

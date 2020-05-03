@@ -21,4 +21,17 @@ class Fixpoint<T, R> implements Function<T, R> {
 }
 ````
 
-See the test folder for usage examples.
+This can be used as follows:
+
+````java
+Function<BigInteger, BigInteger> fact = new Fixpoint<>((f, n) -> {
+    if (n.equals(ZERO)) {
+        return ONE;
+    }
+    return n.multiply(f.apply(n.subtract(ONE)));
+});
+Assertions.assertEquals(BigInteger.valueOf(120), fact.apply(BigInteger.valueOf(5)));
+````
+
+See the test folder for more usage examples.
+
