@@ -21,7 +21,7 @@ class Fixpoint<T, R> implements Function<T, R> {
 }
 ````
 
-This can be used as follows:
+One possible use case is to define a recursive function in a single statement:
 
 ````java
 Function<BigInteger, BigInteger> fact = new Fixpoint<>((f, n) -> {
