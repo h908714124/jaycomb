@@ -2,7 +2,7 @@
 
 http://www.righto.com/2009/03/y-combinator-in-arc-and-java.html
 
-Fixpoint can be implemented very simple in Java:
+Fixpoint is very easy in Java:
 
 ````java
 class Fixpoint<T, R> implements Function<T, R> {
@@ -21,4 +21,4 @@ class Fixpoint<T, R> implements Function<T, R> {
 }
 ````
 
-See the test folder for a usage example.
+See the test folder for usage examples.

@@ -9,17 +9,18 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 
 import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
 
-class FixpointTest {
+class AdditionTest {
 
-    private BigInteger recursiveAdd(Function<Entry<BigInteger, BigInteger>, BigInteger> f, Entry<BigInteger, BigInteger> n) {
-        if (n.getKey().equals(BigInteger.ZERO)) {
+    private BigInteger radd(Function<Entry<BigInteger, BigInteger>, BigInteger> f, Entry<BigInteger, BigInteger> n) {
+        if (n.getKey().equals(ZERO)) {
             return n.getValue();
         }
         return f.apply(pair(n.getKey().subtract(ONE), n.getValue().add(ONE)));
     }
 
-    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = new Fixpoint<>(this::recursiveAdd);
+    private Function<Entry<BigInteger, BigInteger>, BigInteger> add = new Fixpoint<>(this::radd);
 
     @Test
     void testAdd() {
