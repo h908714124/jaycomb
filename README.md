@@ -2,7 +2,7 @@
 
 http://www.righto.com/2009/03/y-combinator-in-arc-and-java.html
 
-Fixpoint is very easy in Java:
+Creating a fixpoint is actually not very hard in a language like Java:
 
 ````java
 class Fixpoint<T, R> implements Function<T, R> {
