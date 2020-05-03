@@ -5,15 +5,15 @@ import java.util.function.Function;
 
 class Fixpoint<T, R> implements Function<T, R> {
 
-    private Function<T, R> f;
+    private BiFunction<Function<T, R>, T, R> r;
 
     // Create a recursive version of r.
     Fixpoint(BiFunction<Function<T, R>, T, R> r) {
-        f = t -> r.apply(f, t);
+        this.r = r;
     }
 
     @Override
     public R apply(T t) {
-        return f.apply(t);
+        return r.apply(this, t);
     }
 }
